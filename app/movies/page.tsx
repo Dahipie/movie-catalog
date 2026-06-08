@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Movie, Director, ApiResponse } from "@/types";
 import MovieCard from "@/components/MovieCard";
 import Pagination from "@/components/Pagination";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import SkeletonCard from "@/components/SkeletonCard";
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -12,7 +14,6 @@ export default function MoviesPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
   const [selectedDirectorId, setSelectedDirectorId] = useState("");
-  const [deletingId, setDeletingId] = useState<string | null>(null);
   const limit = 5;
 
   const fetchMovies = async () => {
@@ -48,36 +49,30 @@ export default function MoviesPage() {
   }, [page, search, selectedDirectorId]);
 
   const handleDelete = async (id: string) => {
-    setDeletingId(id);
-    
-    try {
-      await fetch(`/api/movies/${id}`, { method: "DELETE" });
-      
-      // Обновляем список, но сохраняем текущую страницу
-      await fetchMovies();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setDeletingId(null);
+    if (confirm("Удалить фильм?")) {
+      try {
+        await fetch(`/api/movies/${id}`, { method: "DELETE" });
+        fetchMovies();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
-  if (loading) return <div className="text-center py-10">Загрузка...</div>;
-
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6">🎬 Фильмы</h1>
+    <div className="animate-fade-in">
+      <h1 className="text-3xl font-bold mb-6 animate-slide-left">🎬 Фильмы</h1>
       
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
+      <div className="flex flex-col md:flex-row gap-4 mb-6 animate-slide-right">
         <input
           type="text"
-          placeholder="Поиск по названию..."
+          placeholder="🔍 Поиск по названию..."
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
             setPage(1);
           }}
-          className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
         />
         <select
           value={selectedDirectorId}
@@ -85,7 +80,7 @@ export default function MoviesPage() {
             setSelectedDirectorId(e.target.value);
             setPage(1);
           }}
-          className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
         >
           <option value="">Все режиссёры</option>
           {directors.map(director => (
@@ -96,28 +91,43 @@ export default function MoviesPage() {
         </select>
       </div>
 
-      <div className="space-y-4">
-        {movies.length === 0 ? (
-          <div className="text-center py-10 text-gray-500">
-            Фильмов не найдено
-          </div>
-        ) : (
-          movies.map(movie => (
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-              directors={directors}
-              onDelete={handleDelete}
-            />
-          ))
-        )}
-      </div>
+      {loading ? (
+        <div className="space-y-4">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="animate-fade-in-up delay-100" style={{ animationDelay: `${i * 0.1}s` }}>
+              <SkeletonCard />
+            </div>
+          ))}
+        </div>
+      ) : movies.length === 0 ? (
+        <div className="text-center py-10 text-gray-500 animate-fade-in">
+          😕 Фильмов не найдено
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {movies.map((movie, index) => (
+            <div 
+              key={movie.id} 
+              className="animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
+              <MovieCard
+                movie={movie}
+                directors={directors}
+                onDelete={handleDelete}
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
-      <Pagination
-        currentPage={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
-      />
+      <div className="animate-fade-in-up delay-300">
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
+      </div>
     </div>
   );
 }

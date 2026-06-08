@@ -12,6 +12,7 @@ interface Props {
 export default function DirectorCard({ director, onDelete }: Props) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const photoUrl = director.photoPath && !imageError 
     ? director.photoPath 
@@ -29,23 +30,24 @@ export default function DirectorCard({ director, onDelete }: Props) {
   return (
     <div 
       className={`
-        bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out
+        bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out hover-lift hover-scale
         ${isDeleting ? "opacity-0 scale-95 -translate-x-full" : "opacity-100 scale-100 translate-x-0"}
+        animate-fade-in-up
       `}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex flex-col sm:flex-row">
-        {/* Фото режиссёра */}
-        <div className="relative w-full sm:w-32 h-48 sm:h-auto flex-shrink-0 bg-gray-200">
+        <div className="relative w-full sm:w-32 h-48 sm:h-auto flex-shrink-0 bg-gray-200 overflow-hidden">
           <Image
             src={photoUrl}
             alt={director.fullName}
             fill
-            className="object-cover"
+            className={`object-cover transition-transform duration-500 ${isHovered ? "scale-110" : "scale-100"}`}
             onError={() => setImageError(true)}
           />
         </div>
         
-        {/* Информация о режиссёре */}
         <div className="p-4 flex-1">
           <h3 className="text-xl font-semibold mb-2">{director.fullName}</h3>
           <p className="text-gray-600">Год рождения: {director.birthYear}</p>
@@ -56,20 +58,20 @@ export default function DirectorCard({ director, onDelete }: Props) {
           <div className="mt-4 flex gap-2">
             <Link
               href={`/directors/${director.id}`}
-              className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
+              className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-all duration-200 hover:scale-105 active:scale-95 inline-block"
             >
               Подробнее
             </Link>
             <Link
               href={`/directors/${director.id}/edit`}
-              className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition"
+              className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition-all duration-200 hover:scale-105 active:scale-95 inline-block"
             >
               Редактировать
             </Link>
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition disabled:opacity-50"
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50"
             >
               {isDeleting ? "Удаление..." : "Удалить"}
             </button>

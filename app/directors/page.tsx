@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Director, ApiResponse } from "@/types";
 import DirectorCard from "@/components/DirectorCard";
 import Pagination from "@/components/Pagination";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import SkeletonCard from "@/components/SkeletonCard";
 
 export default function DirectorsPage() {
   const [directors, setDirectors] = useState<Director[]>([]);
@@ -40,17 +42,39 @@ export default function DirectorsPage() {
     }
   };
 
-  if (loading) return <div className="text-center py-10">Загрузка...</div>;
-
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6">Режиссёры</h1>
-      <div className="grid md:grid-cols-2 gap-4">
-        {directors.map(director => (
-          <DirectorCard key={director.id} director={director} onDelete={handleDelete} />
-        ))}
+    <div className="animate-fade-in">
+      <h1 className="text-3xl font-bold mb-6 animate-slide-left">🎭 Режиссёры</h1>
+      
+      {loading ? (
+        <div className="grid md:grid-cols-2 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="animate-fade-in-up delay-100" style={{ animationDelay: `${i * 0.1}s` }}>
+              <SkeletonCard />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 gap-4">
+          {directors.map((director, index) => (
+            <div 
+              key={director.id} 
+              className="animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <DirectorCard director={director} onDelete={handleDelete} />
+            </div>
+          ))}
+        </div>
+      )}
+      
+      <div className="animate-fade-in-up delay-300">
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
       </div>
-      <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
     </div>
   );
 }
