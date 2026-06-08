@@ -30,11 +30,13 @@ export default function DirectorsPage() {
   }, [page]);
 
   const handleDelete = async (id: string) => {
-    try {
-      await fetch(`/api/directors/${id}`, { method: "DELETE" });
-      fetchDirectors();
-    } catch (error) {
-      console.error(error);
+    if (confirm("Удалить режиссёра?")) {
+      try {
+        await fetch(`/api/directors/${id}`, { method: "DELETE" });
+        fetchDirectors();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
