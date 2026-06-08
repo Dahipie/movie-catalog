@@ -1,0 +1,361 @@
+{
+  "directors": [
+    {
+      "id": "d1111111-1111-1111-1111-111111111111",
+      "fullName": "Кристофер Нолан",
+      "birthYear": 1970,
+      "country": "Великобритания",
+      "isActive": true,
+      "posterPath": "/posters/parasite.jpg",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "d2222222-2222-2222-2222-222222222222",
+      "fullName": "Квентин Тарантино",
+      "birthYear": 1963,
+      "country": "США",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "d3333333-3333-3333-3333-333333333333",
+      "fullName": "Грета Гервиг",
+      "birthYear": 1983,
+      "country": "США",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "d4444444-4444-4444-4444-444444444444",
+      "fullName": "Дени Вильнёв",
+      "birthYear": 1967,
+      "country": "Канада",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "d5555555-5555-5555-5555-555555555555",
+      "fullName": "Дэвид Финчер",
+      "birthYear": 1962,
+      "country": "США",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "d6666666-6666-6666-6666-666666666666",
+      "fullName": "Мартин Скорсезе",
+      "birthYear": 1942,
+      "country": "США",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "d7777777-7777-7777-7777-777777777777",
+      "fullName": "Ридли Скотт",
+      "birthYear": 1937,
+      "country": "Великобритания",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "d8888888-8888-8888-8888-888888888888",
+      "fullName": "Джеймс Кэмерон",
+      "birthYear": 1954,
+      "country": "Канада",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "d9999999-9999-9999-9999-999999999999",
+      "fullName": "Питер Джексон",
+      "birthYear": 1961,
+      "country": "Новая Зеландия",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "daaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "fullName": "Бонг Джун Хо",
+      "birthYear": 1969,
+      "country": "Южная Корея",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "movies": [
+    {
+      "id": "m1111111-1111-1111-1111-111111111111",
+      "title": "Интерстеллар",
+      "releaseYear": 2014,
+      "genre": "Фантастика",
+      "directorId": "d1111111-1111-1111-1111-111111111111",
+      "posterPath": "/posters/interstellar.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "m2222222-2222-2222-2222-222222222222",
+      "title": "Начало",
+      "releaseYear": 2010,
+      "genre": "Фантастика",
+      "directorId": "d1111111-1111-1111-1111-111111111111",
+      "posterPath": "/posters/inception.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2026-06-08T13:27:55.169Z"
+    },
+    {
+      "id": "m3333333-3333-3333-3333-333333333333",
+      "title": "Дюнкерк",
+      "releaseYear": 2017,
+      "genre": "Военный",
+      "directorId": "d1111111-1111-1111-1111-111111111111",
+      "posterPath": "/posters/dunkirk.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "m4444444-4444-4444-4444-444444444444",
+      "title": "Тёмный рыцарь",
+      "releaseYear": 2008,
+      "genre": "Боевик",
+      "directorId": "d1111111-1111-1111-1111-111111111111",
+      "posterPath": "/posters/dark_knight.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "m5555555-5555-5555-5555-555555555555",
+      "title": "Криминальное чтиво",
+      "releaseYear": 1994,
+      "genre": "Криминал",
+      "directorId": "d2222222-2222-2222-2222-222222222222",
+      "posterPath": "/posters/pulp_fiction.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "m6666666-6666-6666-6666-666666666666",
+      "title": "Убить Билла",
+      "releaseYear": 2003,
+      "genre": "Боевик",
+      "directorId": "d2222222-2222-2222-2222-222222222222",
+      "posterPath": "/posters/kill_bill.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "m7777777-7777-7777-7777-777777777777",
+      "title": "Бесславные ублюдки",
+      "releaseYear": 2009,
+      "genre": "Военный",
+      "directorId": "d2222222-2222-2222-2222-222222222222",
+      "posterPath": "/posters/inglourious_basterds.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "m8888888-8888-8888-8888-888888888888",
+      "title": "Джанго освобождённый",
+      "releaseYear": 2012,
+      "genre": "Вестерн",
+      "directorId": "d2222222-2222-2222-2222-222222222222",
+      "posterPath": "/posters/django.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "m9999999-9999-9999-9999-999999999999",
+      "title": "Леди Бёрд",
+      "releaseYear": 2017,
+      "genre": "Драма",
+      "directorId": "d3333333-3333-3333-3333-333333333333",
+      "posterPath": "/posters/lady_bird.jpg",
+      "isBlockbuster": false,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "maaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "title": "Маленькие женщины",
+      "releaseYear": 2019,
+      "genre": "Драма",
+      "directorId": "d3333333-3333-3333-3333-333333333333",
+      "posterPath": "/posters/little_women.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mbbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+      "title": "Дюна",
+      "releaseYear": 2021,
+      "genre": "Фантастика",
+      "directorId": "d4444444-4444-4444-4444-444444444444",
+      "posterPath": "/posters/dune.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mcccccccc-cccc-cccc-cccc-cccccccccccc",
+      "title": "Бегущий по лезвию 2049",
+      "releaseYear": 2017,
+      "genre": "Фантастика",
+      "directorId": "d4444444-4444-4444-4444-444444444444",
+      "posterPath": "/posters/blade_runner.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mdddddddd-dddd-dddd-dddd-dddddddddddd",
+      "title": "Прибытие",
+      "releaseYear": 2016,
+      "genre": "Фантастика",
+      "directorId": "d4444444-4444-4444-4444-444444444444",
+      "posterPath": "/posters/arrival.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "meeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
+      "title": "Бойцовский клуб",
+      "releaseYear": 1999,
+      "genre": "Драма",
+      "directorId": "d5555555-5555-5555-5555-555555555555",
+      "posterPath": "/posters/fight_club.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mffffffff-ffff-ffff-ffff-ffffffffffff",
+      "title": "Загадочная история Бенджамина Баттона",
+      "releaseYear": 2008,
+      "genre": "Драма",
+      "directorId": "d5555555-5555-5555-5555-555555555555",
+      "posterPath": "/posters/benjamin_button.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mgggggggg-gggg-gggg-gggg-gggggggggggg",
+      "title": "Социальная сеть",
+      "releaseYear": 2010,
+      "genre": "Драма",
+      "directorId": "d5555555-5555-5555-5555-555555555555",
+      "posterPath": "/posters/social_network.jpg",
+      "isBlockbuster": false,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mhhhhhhhh-hhhh-hhhh-hhhh-hhhhhhhhhhhh",
+      "title": "Волк с Уолл-стрит",
+      "releaseYear": 2013,
+      "genre": "Комедия",
+      "directorId": "d6666666-6666-6666-6666-666666666666",
+      "posterPath": "/posters/wolf_of_wall_street.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "miiiiiiii-iiii-iiii-iiii-iiiiiiiiiiii",
+      "title": "Остров проклятых",
+      "releaseYear": 2010,
+      "genre": "Триллер",
+      "directorId": "d6666666-6666-6666-6666-666666666666",
+      "posterPath": "/posters/shutter_island.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mjjjjjjjj-jjjj-jjjj-jjjj-jjjjjjjjjjjj",
+      "title": "Марсианин",
+      "releaseYear": 2015,
+      "genre": "Фантастика",
+      "directorId": "d7777777-7777-7777-7777-777777777777",
+      "posterPath": "/posters/martian.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mkkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk",
+      "title": "Гладиатор",
+      "releaseYear": 2000,
+      "genre": "Боевик",
+      "directorId": "d7777777-7777-7777-7777-777777777777",
+      "posterPath": "/posters/gladiator.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mllllllll-llll-llll-llll-llllllllllll",
+      "title": "Титаник",
+      "releaseYear": 1997,
+      "genre": "Драма",
+      "directorId": "d8888888-8888-8888-8888-888888888888",
+      "posterPath": "/posters/titanic.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mmmmmmmmm-mmmm-mmmm-mmmm-mmmmmmmmmmmm",
+      "title": "Аватар",
+      "releaseYear": 2009,
+      "genre": "Фантастика",
+      "directorId": "d8888888-8888-8888-8888-888888888888",
+      "posterPath": "/posters/avatar.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "mnnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn",
+      "title": "Властелин колец: Братство кольца",
+      "releaseYear": 2001,
+      "genre": "Фэнтези",
+      "directorId": "d9999999-9999-9999-9999-999999999999",
+      "posterPath": "/posters/lotr_fellowship.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "moooooooo-oooo-oooo-oooo-oooooooooooo",
+      "title": "Паразиты",
+      "releaseYear": 2019,
+      "genre": "Драма",
+      "directorId": "daaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "posterPath": "/posters/parasite.jpg",
+      "isBlockbuster": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
