@@ -1,18 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import FileUpload from "@/components/FileUpload";
 
 interface Director {
   id: string;
   fullName: string;
-}
-
-interface MovieFormData {
-  title: string;
-  releaseYear: number;
-  genre: string;
-  directorId: string;
-  isBlockbuster: boolean;
 }
 
 export default function EditMoviePage() {
@@ -22,15 +15,20 @@ export default function EditMoviePage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [directors, setDirectors] = useState<Director[]>([]);
-  const [formData, setFormData] = useState<MovieFormData>({
+  const [formData, setFormData] = useState({
     title: "",
     releaseYear: new Date().getFullYear(),
     genre: "",
     directorId: "",
+    description: "",
+    duration: 120,
+    budget: "",
+    rating: "PG-13",
+    country: "",
     isBlockbuster: false,
+    posterPath: "",
   });
 
-  // Загрузка списка режиссёров
   useEffect(() => {
     fetch("/api/directors?limit=100")
       .then(res => res.json())
@@ -38,7 +36,6 @@ export default function EditMoviePage() {
       .catch(console.error);
   }, []);
 
-  // Загрузка данных фильма
   useEffect(() => {
     const fetchMovie = async () => {
       try {
@@ -50,11 +47,16 @@ export default function EditMoviePage() {
           releaseYear: data.releaseYear || 2024,
           genre: data.genre || "",
           directorId: data.directorId || "",
+          description: data.description || "",
+          duration: data.duration || 120,
+          budget: data.budget || "",
+          rating: data.rating || "PG-13",
+          country: data.country || "",
           isBlockbuster: data.isBlockbuster || false,
+          posterPath: data.posterPath || "",
         });
       } catch (err) {
         setError("Ошибка загрузки фильма");
-        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -104,6 +106,14 @@ export default function EditMoviePage() {
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
+          <label className="block mb-1 font-medium">Постер фильма</label>
+          <FileUpload onFileUploaded={(path) => setFormData({ ...formData, posterPath: path })} />
+          {formData.posterPath && (
+            <p className="text-sm text-green-600 mt-1">Текущий постер: {formData.posterPath}</p>
+          )}
+        </div>
+        
+        <div>
           <label className="block mb-1 font-medium">Название *</label>
           <input
             type="text"
@@ -139,6 +149,16 @@ export default function EditMoviePage() {
         </div>
         
         <div>
+          <label className="block mb-1 font-medium">Страна производства</label>
+          <input
+            type="text"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.country}
+            onChange={e => setFormData({ ...formData, country: e.target.value })}
+          />
+        </div>
+        
+        <div>
           <label className="block mb-1 font-medium">Режиссёр *</label>
           <select
             required
@@ -153,6 +173,54 @@ export default function EditMoviePage() {
               </option>
             ))}
           </select>
+        </div>
+        
+        <div>
+          <label className="block mb-1 font-medium">Длительность (минуты)</label>
+          <input
+            type="number"
+            min="1"
+            max="600"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.duration}
+            onChange={e => setFormData({ ...formData, duration: parseInt(e.target.value) || 0 })}
+          />
+        </div>
+        
+        <div>
+          <label className="block mb-1 font-medium">Возрастной рейтинг</label>
+          <select
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.rating}
+            onChange={e => setFormData({ ...formData, rating: e.target.value })}
+          >
+            <option value="G">G — Нет ограничений</option>
+            <option value="PG">PG — Рекомендуется присутствие родителей</option>
+            <option value="PG-13">PG-13 — Детям до 13 лет с родителями</option>
+            <option value="R">R — До 17 лет только с родителями</option>
+            <option value="NC-17">NC-17 — Только с 18 лет</option>
+            <option value="18+">18+ — Только для взрослых</option>
+          </select>
+        </div>
+        
+        <div>
+          <label className="block mb-1 font-medium">Бюджет</label>
+          <input
+            type="text"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.budget}
+            onChange={e => setFormData({ ...formData, budget: e.target.value })}
+          />
+        </div>
+        
+        <div>
+          <label className="block mb-1 font-medium">Описание сюжета</label>
+          <textarea
+            rows={4}
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.description}
+            onChange={e => setFormData({ ...formData, description: e.target.value })}
+          />
         </div>
         
         <div>

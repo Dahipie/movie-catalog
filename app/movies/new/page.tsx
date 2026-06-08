@@ -18,6 +18,11 @@ export default function CreateMoviePage() {
     releaseYear: new Date().getFullYear(),
     genre: "",
     directorId: "",
+    description: "",
+    duration: 120,
+    budget: "",
+    rating: "PG-13",
+    country: "",
     isBlockbuster: false,
     posterPath: "",
   });
@@ -110,6 +115,17 @@ export default function CreateMoviePage() {
         </div>
         
         <div>
+          <label className="block mb-1 font-medium">Страна производства</label>
+          <input
+            type="text"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="США, Великобритания и т.д."
+            value={formData.country}
+            onChange={e => setFormData({ ...formData, country: e.target.value })}
+          />
+        </div>
+        
+        <div>
           <label className="block mb-1 font-medium">Режиссёр *</label>
           <select
             required
@@ -124,6 +140,56 @@ export default function CreateMoviePage() {
               </option>
             ))}
           </select>
+        </div>
+        
+        <div>
+          <label className="block mb-1 font-medium">Длительность (минуты)</label>
+          <input
+            type="number"
+            min="1"
+            max="600"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.duration}
+            onChange={e => setFormData({ ...formData, duration: parseInt(e.target.value) || 0 })}
+          />
+        </div>
+        
+        <div>
+          <label className="block mb-1 font-medium">Возрастной рейтинг</label>
+          <select
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.rating}
+            onChange={e => setFormData({ ...formData, rating: e.target.value })}
+          >
+            <option value="G">G — Нет ограничений</option>
+            <option value="PG">PG — Рекомендуется присутствие родителей</option>
+            <option value="PG-13">PG-13 — Детям до 13 лет с родителями</option>
+            <option value="R">R — До 17 лет только с родителями</option>
+            <option value="NC-17">NC-17 — Только с 18 лет</option>
+            <option value="18+">18+ — Только для взрослых</option>
+          </select>
+        </div>
+        
+        <div>
+          <label className="block mb-1 font-medium">Бюджет</label>
+          <input
+            type="text"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="$100 000 000"
+            value={formData.budget}
+            onChange={e => setFormData({ ...formData, budget: e.target.value })}
+          />
+        </div>
+        
+        <div>
+          <label className="block mb-1 font-medium">Описание сюжета</label>
+          <textarea
+            rows={4}
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Введите описание фильма..."
+            value={formData.description}
+            onChange={e => setFormData({ ...formData, description: e.target.value })}
+          />
         </div>
         
         <div>
