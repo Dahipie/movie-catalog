@@ -4,7 +4,7 @@ export interface Director {
   birthYear: number;
   country: string;
   isActive: boolean;
-  isDeleted?: boolean;  // ← Добавьте
+  photoPath?: string;
   createdAt: string;
   updatedAt: string;
 }
