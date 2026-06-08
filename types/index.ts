@@ -16,6 +16,11 @@ export interface Movie {
   genre: string;
   directorId: string;
   posterPath?: string;
+  description?: string;
+  duration?: number;
+  budget?: string;
+  rating?: string;
+  country?: string; м
   isBlockbuster: boolean;
   createdAt: string;
   updatedAt: string;

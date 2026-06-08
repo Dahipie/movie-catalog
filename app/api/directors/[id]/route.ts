@@ -7,13 +7,24 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+    console.log("API: запрос режиссёра с ID:", id);
+    
     const director = getDirectorById(id);
     if (!director) {
+      console.log("API: режиссёр не найден");
       return NextResponse.json({ error: "Режиссёр не найден" }, { status: 404 });
     }
+    
+    // Загружаем фильмы этого режиссёра
     const movies = getMoviesByDirector(id);
-    return NextResponse.json({ ...director, movies });
+    console.log("API: найдено фильмов:", movies.length);
+    
+    // Возвращаем режиссёра с его фильмами
+    const result = { ...director, movies };
+    console.log("API: возвращаем результат");
+    return NextResponse.json(result);
   } catch (error) {
+    console.error("API error:", error);
     return NextResponse.json({ error: "Ошибка сервера" }, { status: 500 });
   }
 }

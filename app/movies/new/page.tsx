@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import FileUpload from "@/components/FileUpload";
 
 interface Director {
   id: string;
@@ -14,10 +15,11 @@ export default function CreateMoviePage() {
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     title: "",
-    releaseYear: 2024,
+    releaseYear: new Date().getFullYear(),
     genre: "",
     directorId: "",
     isBlockbuster: false,
+    posterPath: "",
   });
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function CreateMoviePage() {
         router.push("/movies");
       } else {
         const data = await res.json();
-        setError(data.error);
+        setError(data.error || "Ошибка при создании");
       }
     } catch {
       setError("Ошибка при создании");
@@ -63,12 +65,21 @@ export default function CreateMoviePage() {
       )}
       
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Загрузка постера */}
+        <div>
+          <label className="block mb-1 font-medium">Постер фильма</label>
+          <FileUpload onFileUploaded={(path) => setFormData({ ...formData, posterPath: path })} />
+          {formData.posterPath && (
+            <p className="text-sm text-green-600 mt-1">Файл загружен: {formData.posterPath}</p>
+          )}
+        </div>
+        
         <div>
           <label className="block mb-1 font-medium">Название *</label>
           <input
             type="text"
             required
-            className="w-full border rounded px-3 py-2"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={formData.title}
             onChange={e => setFormData({ ...formData, title: e.target.value })}
           />
@@ -81,9 +92,9 @@ export default function CreateMoviePage() {
             required
             min="1888"
             max="2026"
-            className="w-full border rounded px-3 py-2"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={formData.releaseYear}
-            onChange={e => setFormData({ ...formData, releaseYear: parseInt(e.target.value) })}
+            onChange={e => setFormData({ ...formData, releaseYear: parseInt(e.target.value) || 2024 })}
           />
         </div>
         
@@ -92,7 +103,7 @@ export default function CreateMoviePage() {
           <input
             type="text"
             required
-            className="w-full border rounded px-3 py-2"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={formData.genre}
             onChange={e => setFormData({ ...formData, genre: e.target.value })}
           />
@@ -102,7 +113,7 @@ export default function CreateMoviePage() {
           <label className="block mb-1 font-medium">Режиссёр *</label>
           <select
             required
-            className="w-full border rounded px-3 py-2"
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={formData.directorId}
             onChange={e => setFormData({ ...formData, directorId: e.target.value })}
           >
@@ -121,17 +132,18 @@ export default function CreateMoviePage() {
               type="checkbox"
               checked={formData.isBlockbuster}
               onChange={e => setFormData({ ...formData, isBlockbuster: e.target.checked })}
+              className="w-4 h-4"
             />
-            Блокбастер
+            <span className="font-medium">Блокбастер</span>
           </label>
         </div>
         
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 disabled:opacity-50 transition"
         >
-          {loading ? "Создание..." : "Создать"}
+          {loading ? "Создание..." : "Создать фильм"}
         </button>
       </form>
     </div>
