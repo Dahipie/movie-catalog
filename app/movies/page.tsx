@@ -12,9 +12,9 @@ export default function MoviesPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
   const [selectedDirectorId, setSelectedDirectorId] = useState("");
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const limit = 5;
 
-  // Функция загрузки фильмов
   const fetchMovies = async () => {
     setLoading(true);
     try {
@@ -36,7 +36,6 @@ export default function MoviesPage() {
     }
   };
 
-  // Загрузка режиссёров для фильтра
   useEffect(() => {
     fetch("/api/directors?limit=100")
       .then(res => res.json())
@@ -44,34 +43,22 @@ export default function MoviesPage() {
       .catch(console.error);
   }, []);
 
-  // Загрузка фильмов при изменении параметров
   useEffect(() => {
     fetchMovies();
   }, [page, search, selectedDirectorId]);
 
   const handleDelete = async (id: string) => {
-    if (confirm("Удалить фильм?")) {
-      try {
-        await fetch(`/api/movies/${id}`, { method: "DELETE" });
-        fetchMovies(); // Обновляем список
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
-  const handleRestore = async (id: string) => {
+    setDeletingId(id);
+    
     try {
-      const res = await fetch(`/api/movies/${id}/restore`, { method: "PATCH" });
-      if (res.ok) {
-        alert("Фильм восстановлен!");
-        fetchMovies(); // Обновляем список
-      } else {
-        alert("Не удалось восстановить фильм");
-      }
+      await fetch(`/api/movies/${id}`, { method: "DELETE" });
+      
+      // Обновляем список, но сохраняем текущую страницу
+      await fetchMovies();
     } catch (error) {
       console.error(error);
-      alert("Ошибка при восстановлении");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -81,7 +68,6 @@ export default function MoviesPage() {
     <div>
       <h1 className="text-3xl font-bold mb-6">🎬 Фильмы</h1>
       
-      {/* Поиск и фильтрация */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <input
           type="text"
@@ -91,7 +77,7 @@ export default function MoviesPage() {
             setSearch(e.target.value);
             setPage(1);
           }}
-          className="flex-1 border rounded px-3 py-2"
+          className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <select
           value={selectedDirectorId}
@@ -99,7 +85,7 @@ export default function MoviesPage() {
             setSelectedDirectorId(e.target.value);
             setPage(1);
           }}
-          className="border rounded px-3 py-2"
+          className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Все режиссёры</option>
           {directors.map(director => (
@@ -110,24 +96,22 @@ export default function MoviesPage() {
         </select>
       </div>
 
-      {/* Список фильмов */}
-      {movies.length === 0 ? (
-        <div className="text-center py-10 text-gray-500">
-          Фильмов не найдено
-        </div>
-      ) : (
-        <div className="grid md:grid-cols-2 gap-4">
-          {movies.map(movie => (
+      <div className="space-y-4">
+        {movies.length === 0 ? (
+          <div className="text-center py-10 text-gray-500">
+            Фильмов не найдено
+          </div>
+        ) : (
+          movies.map(movie => (
             <MovieCard
               key={movie.id}
               movie={movie}
               directors={directors}
               onDelete={handleDelete}
-              onRestore={handleRestore}
             />
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
 
       <Pagination
         currentPage={page}

@@ -20,16 +20,26 @@ export default function MovieCard({ movie, directors, onDelete }: Props) {
     ? movie.posterPath 
     : "/posters/placeholder.jpg";
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (confirm(`Удалить фильм "${movie.title}"?`)) {
+      // Запускаем анимацию
       setIsDeleting(true);
-      onDelete(movie.id);
-      setTimeout(() => setIsDeleting(false), 500);
+      
+      // Ждём окончания анимации (300ms), потом удаляем
+      setTimeout(() => {
+        onDelete(movie.id);
+      }, 300);
     }
   };
 
   return (
-    <div className={`bg-white rounded-lg shadow-md overflow-hidden transition-all ${isDeleting ? "bg-red-100 scale-95" : ""}`}>
+    <div 
+      className={`
+        bg-white rounded-lg shadow-md overflow-hidden 
+        transition-all duration-300 ease-in-out
+        ${isDeleting ? "opacity-0 scale-95 -translate-x-full" : "opacity-100 scale-100 translate-x-0"}
+      `}
+    >
       <div className="flex flex-col sm:flex-row">
         <div 
           className="relative w-full sm:w-32 h-48 sm:h-auto flex-shrink-0 bg-gray-200 cursor-pointer"
@@ -54,21 +64,22 @@ export default function MovieCard({ movie, directors, onDelete }: Props) {
           <div className="mt-4 flex gap-2">
             <button
               onClick={() => router.push(`/movies/${movie.id}`)}
-              className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+              className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
             >
               Подробнее
             </button>
             <button
               onClick={() => router.push(`/movies/${movie.id}/edit`)}
-              className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
+              className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition"
             >
               Редактировать
             </button>
             <button
               onClick={handleDelete}
-              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+              disabled={isDeleting}
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Удалить
+              {isDeleting ? "Удаление..." : "Удалить"}
             </button>
           </div>
         </div>

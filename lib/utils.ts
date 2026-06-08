@@ -74,7 +74,7 @@ export function deleteDirector(id: string): boolean {
 
 // getAllMovies показывает только не удалённые фильмы
 export function getAllMovies(): Movie[] {
-  return getMovies().filter(m => !m.isDeleted);
+  return getMovies();
 }
 
 // Получить все фильмы (включая удалённые) — для администратора

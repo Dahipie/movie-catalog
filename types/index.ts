@@ -17,7 +17,6 @@ export interface Movie {
   directorId: string;
   posterPath?: string;
   isBlockbuster: boolean;
-  isDeleted?: boolean;  // ← Добавьте
   createdAt: string;
   updatedAt: string;
 }
