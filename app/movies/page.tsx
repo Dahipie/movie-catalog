@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { Movie, Director, ApiResponse } from "@/types";
 import MovieCard from "@/components/MovieCard";
 import Pagination from "@/components/Pagination";
-import LoadingSpinner from "@/components/LoadingSpinner";
-import SkeletonCard from "@/components/SkeletonCard";
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -14,7 +12,7 @@ export default function MoviesPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
   const [selectedDirectorId, setSelectedDirectorId] = useState("");
-  const limit = 5;
+  const limit = 10;
 
   const fetchMovies = async () => {
     setLoading(true);
@@ -49,21 +47,20 @@ export default function MoviesPage() {
   }, [page, search, selectedDirectorId]);
 
   const handleDelete = async (id: string) => {
-    if (confirm("Удалить фильм?")) {
-      try {
-        await fetch(`/api/movies/${id}`, { method: "DELETE" });
-        fetchMovies();
-      } catch (error) {
-        console.error(error);
-      }
+    try {
+      await fetch(`/api/movies/${id}`, { method: "DELETE" });
+      fetchMovies();
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <div className="animate-fade-in">
-      <h1 className="text-3xl font-bold mb-6 animate-slide-left">🎬 Фильмы</h1>
+    <div className="pb-8">
+      <h1 className="text-2xl font-bold mb-4 animate-slide-left">🎬 Фильмы</h1>
       
-      <div className="flex flex-col md:flex-row gap-4 mb-6 animate-slide-right">
+      {/* Поиск */}
+      <div className="mb-4 animate-slide-right">
         <input
           type="text"
           placeholder="🔍 Поиск по названию..."
@@ -72,17 +69,21 @@ export default function MoviesPage() {
             setSearch(e.target.value);
             setPage(1);
           }}
-          className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          className="w-full border rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+      </div>
+
+      {/* Фильтр по режиссёру */}
+      <div className="mb-6 animate-slide-right delay-100">
         <select
           value={selectedDirectorId}
           onChange={(e) => {
             setSelectedDirectorId(e.target.value);
             setPage(1);
           }}
-          className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          className="w-full border rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
         >
-          <option value="">Все режиссёры</option>
+          <option value="">🎭 Все режиссёры</option>
           {directors.map(director => (
             <option key={director.id} value={director.id}>
               {director.fullName}
@@ -91,37 +92,31 @@ export default function MoviesPage() {
         </select>
       </div>
 
+      {/* Список фильмов */}
       {loading ? (
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="animate-fade-in-up delay-100" style={{ animationDelay: `${i * 0.1}s` }}>
-              <SkeletonCard />
-            </div>
+            <div key={i} className="bg-white rounded-xl h-64 skeleton" />
           ))}
         </div>
       ) : movies.length === 0 ? (
-        <div className="text-center py-10 text-gray-500 animate-fade-in">
+        <div className="text-center py-12 text-gray-500">
           😕 Фильмов не найдено
         </div>
       ) : (
         <div className="space-y-4">
-          {movies.map((movie, index) => (
-            <div 
-              key={movie.id} 
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.05}s` }}
-            >
-              <MovieCard
-                movie={movie}
-                directors={directors}
-                onDelete={handleDelete}
-              />
-            </div>
+          {movies.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              directors={directors}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       )}
 
-      <div className="animate-fade-in-up delay-300">
+      <div className="mt-6">
         <Pagination
           currentPage={page}
           totalPages={totalPages}
