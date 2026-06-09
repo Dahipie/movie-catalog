@@ -110,25 +110,25 @@ npm run dev
 
 ### Конкретный режиссер
 
-![Конкретный исполнитель](https://github.com/user-attachments/assets/2a2a97a1-5622-4148-b95a-07f6fac6c277)
+![Конкретный режиссёр](https://github.com/user-attachments/assets/9d43f56e-d061-42b0-99e7-a6eeb4c0eff8)
 
 ---
 
 ### Все фильмы
 
-![Все альбомы](https://github.com/user-attachments/assets/7f4a5cbe-532c-4987-96db-a48d32ee63c2)
+![Список фильмов](https://github.com/user-attachments/assets/b903d519-f74f-4fa7-aa41-d1b5bc868ac5)
 
 ---
 
 ### Конкретный фильм
 
-![Конкретный альбом](https://github.com/user-attachments/assets/108462ec-6fc0-4301-8436-f56877f53125)
+![Конкретный фильм](https://github.com/user-attachments/assets/8adea59d-0af5-451d-9b25-735319446c4b)
 
 ---
 
 ### Пример создания нового фильма
 
-![Форма создания альбома](https://github.com/user-attachments/assets/c06b0474-1b03-43ce-9020-1cad58ca5795)
+![Форма создания фильма](https://github.com/user-attachments/assets/2eac1b05-17d2-41c1-a902-f85064ba7d4b)
 
 ---
 
