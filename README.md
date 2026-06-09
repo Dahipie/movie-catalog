@@ -98,7 +98,7 @@ npm run dev
 
 ### Главная страница
 
-![Главная страница](https://github.com/user-attachments/assets/08428c2e-5ed2-4f02-9a2c-f6574f5bce82")
+![Главная страница](https://github.com/user-attachments/assets/08428c2e-5ed2-4f02-9a2c-f6574f5bce82)
 
 ---
 
