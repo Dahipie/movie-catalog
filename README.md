@@ -98,7 +98,7 @@ npm run dev
 
 ### Главная страница
 
-![Главная страница](https://github.com/Dahipie/assets/issues/1)
+![Главная страница](https://github.com/Dahipie/assets/issues/1#issue-4621723993)
 
 ---
 
