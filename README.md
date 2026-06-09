@@ -104,7 +104,7 @@ npm run dev
 
 ### Все режиссеры
 
-![Все исполнители](https://github.com/user-attachments/assets/eae6bd3b-2002-41e7-ba12-0980ab17c702)
+![Список режиссёров](https://github.com/user-attachments/assets/be78e9d0-e4ce-450b-9db1-22ac5bf04729)
 
 ---
 
