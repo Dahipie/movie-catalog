@@ -59,7 +59,6 @@ npm run dev
 |----------|------|
 | **Director** (Режиссёр) | `id`, `fullName`, `birthYear`, `country`, `isActive`, `photoPath`, `createdAt`, `updatedAt` |
 | **Movie** (Фильм) | `id`, `title`, `releaseYear`, `genre`, `directorId`, `posterPath`, `description`, `duration`, `budget`, `boxOffice`, `rating`, `country`, `tagline`, `isBlockbuster`, `createdAt`, `description` |
-| **Track** (Трек) | `id`, `title`, `albumId`, `audioPath`, `createdAt`, `updatedAt` |
 
 **Связи:** `Director` → `Movie` →(один-ко-многим)
 
@@ -71,7 +70,7 @@ npm run dev
 
 | Метод | Эндпоинт | Описание |
 |-------|----------|----------|
-| GET | `	/api/directors?page=1&limit=5` | Список режиссёров (пагинация) |
+| GET | `/api/directors?page=1&limit=5` | Список режиссёров (пагинация) |
 | GET | `/api/directors/:id` | Один режиссёр + его фильмы |
 | POST | `/api/directors` | 	Создать режиссёра |
 | PATCH | `/api/directors/:id` | Обновить режиссёра |
