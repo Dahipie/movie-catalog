@@ -43,8 +43,8 @@
 ## 🚀 Запуск
 
 ```bash
-git clone https://github.com/smehovartm/music-catalog.git
-cd music-catalog
+git clone https://github.com/Dahipie/movie-catalog.git
+cd movie-catalog
 npm install
 npm run dev
 ```
@@ -57,49 +57,41 @@ npm run dev
 
 | Сущность | Поля |
 |----------|------|
-| **Artist** (Исполнитель) | `id`, `name`, `country`, `birthYear`, `isActive`, `createdAt`, `updatedAt` |
-| **Album** (Альбом) | `id`, `title`, `releaseYear`, `genre`, `artistId`, `coverPath`, `isStudio`, `createdAt`, `updatedAt` |
+| **Director** (Режиссёр) | `id`, `fullName`, `birthYear`, `country`, `isActive`, `photoPath`, `createdAt`, `updatedAt` |
+| **Movie** (Фильм) | `id`, `title`, `releaseYear`, `genre`, `directorId`, `posterPath`, `description`, `duration`, `budget`, `boxOffice`, `rating`, `country`, `tagline`, `isBlockbuster`, `createdAt`, `description` |
 | **Track** (Трек) | `id`, `title`, `albumId`, `audioPath`, `createdAt`, `updatedAt` |
 
-**Связи:** `Artist` → `Album` → `Track` (один-ко-многим)
+**Связи:** `Director` → `Movie` →(один-ко-многим)
 
 ---
 
 ## 📡 API
 
-### Исполнители
+### Режиссёры
 
 | Метод | Эндпоинт | Описание |
 |-------|----------|----------|
-| GET | `/api/artists?page=1&limit=5` | Список исполнителей (пагинация) |
-| GET | `/api/artists/:id` | Один исполнитель + его альбомы |
-| POST | `/api/artists` | Создать исполнителя |
-| PATCH | `/api/artists/:id` | Обновить исполнителя |
-| DELETE | `/api/artists/:id` | Удалить исполнителя |
+| GET | `	/api/directors?page=1&limit=5` | Список режиссёров (пагинация) |
+| GET | `/api/directors/:id` | Один режиссёр + его фильмы |
+| POST | `/api/directors` | 	Создать режиссёра |
+| PATCH | `/api/directors/:id` | Обновить режиссёра |
+| DELETE | `/api/directors/:id` | 	Удалить режиссёра |
 
-### Альбомы
-
-| Метод | Эндпоинт | Описание |
-|-------|----------|----------|
-| GET | `/api/albums?page=1&search=&artistId=` | Список альбомов (пагинация, поиск, фильтр) |
-| GET | `/api/albums/:id` | Один альбом |
-| POST | `/api/albums` | Создать альбом |
-| PATCH | `/api/albums/:id` | Обновить альбом |
-| DELETE | `/api/albums/:id` | Удалить альбом |
-
-### Треки
+### Фильмы
 
 | Метод | Эндпоинт | Описание |
 |-------|----------|----------|
-| GET | `/api/tracks?albumId=:id` | Треки альбома |
-| POST | `/api/tracks` | Создать трек |
-| DELETE | `/api/tracks/:id` | Удалить трек |
+| GET | `/api/movies?page=1&search=&directorId=` | Список фильмов (пагинация, поиск, фильтр) |
+| GET | `/api/movies/:id` | Один фильм |
+| POST | `/api/movies` | Создать фильм |
+| PATCH | `/api/movies/:id` | 	Обновить фильм |
+| DELETE | `/api/movies/:id` | Удалить фильм |
 
 ### Загрузка файлов
 
 | Метод | Эндпоинт | Описание |
 |-------|----------|----------|
-| POST | `/api/upload` | Загрузка обложек (`image/*`) и аудио (`audio/*`) |
+| POST | `/api/upload` | Загрузка постеров (image/*) и фото (image/*) |
 
 ---
 
@@ -111,70 +103,39 @@ npm run dev
 
 ---
 
-### Все исполнители
+### Все режиссеры
 
 ![Все исполнители](https://github.com/user-attachments/assets/eae6bd3b-2002-41e7-ba12-0980ab17c702)
 
 ---
 
-### Конкретный исполнитель
+### Конкретный режиссер
 
 ![Конкретный исполнитель](https://github.com/user-attachments/assets/2a2a97a1-5622-4148-b95a-07f6fac6c277)
 
 ---
 
-### Все альбомы
+### Все фильмы
 
 ![Все альбомы](https://github.com/user-attachments/assets/7f4a5cbe-532c-4987-96db-a48d32ee63c2)
 
 ---
 
-### Конкретный альбом
+### Конкретный фильм
 
 ![Конкретный альбом](https://github.com/user-attachments/assets/108462ec-6fc0-4301-8436-f56877f53125)
 
 ---
 
-### Пример одной из форм (создание альбома)
+### Пример создания нового фильма
 
 ![Форма создания альбома](https://github.com/user-attachments/assets/c06b0474-1b03-43ce-9020-1cad58ca5795)
 
 ---
 
-### Анимация при наведении на кнопку удаления
-
-![Анимация перед адалением](https://github.com/user-attachments/assets/2ee4d1d7-47d2-4949-b2fb-07cf865aed23)
-
----
-
-### Способы загрузки файлов
-
-| Способ | Скриншот |
-|--------|----------|
-| Перетаскивание файла в специальное поле | ![Drag & Drop](https://github.com/user-attachments/assets/da0260b8-9d60-4b32-b885-968279ddb0b5) |
-| Выбор файла через кнопку (открытие диалогового окна) | ![Выбор файла](https://github.com/user-attachments/assets/d9c08a54-55bc-47c2-92ae-70e66baffbd7) |
-
-
----
-
-
-
-## ✨ Дополнительные возможности (бонусы)
-
-| Бонус | Описание |
-|-------|----------|
-| 💾 Сохранение в JSON | Данные не теряются после перезапуска сервера |
-| 🖼 Загрузка файлов | Обложки альбомов и аудио для треков |
-| 🖱 Drag & Drop | Перетаскивание файлов в область загрузки |
-| 📱 Адаптивный дизайн | Бургер-меню на мобильных устройствах |
-| 🔍 Debounce поиска | Оптимизация запросов при вводе текста |
-| 🟥 Красные плашки | Визуальный эффект при удалении записей |
-
----
-
 ## 👤 Автор
 
-**Смехов Артём Иванович**  
+**Войнов Степан Николаевич**  
 Группа ИСП-9.19 | Специальность 09.02.07
 
 ---
