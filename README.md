@@ -43,7 +43,7 @@
 ## 🚀 Запуск
 
 ```bash
-git clone https://github.com/ВАШ_ЛОГИН/movie-catalog.git
+git clone https://github.com/Dahipie/movie-catalog.git
 cd movie-catalog
 npm install
 npm run dev
