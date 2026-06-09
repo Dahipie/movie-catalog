@@ -49,13 +49,17 @@ npm install
 npm run dev
 Открой http://localhost:3000
 
-📁 Сущности
+---
+
+## 📁 Сущности
 Сущность	Поля
 Director (Режиссёр)	id, fullName, birthYear, country, isActive, photoPath, createdAt, updatedAt
 Movie (Фильм)	id, title, releaseYear, genre, directorId, posterPath, description, duration, budget, boxOffice, rating, country, tagline, isBlockbuster, createdAt, updatedAt
 Связи: Director → Movie (один-ко-многим)
 
-📡 API
+---
+
+## 📡 API
 🎭 Режиссёры
 Метод	Эндпоинт	Описание
 GET	/api/directors?page=1&limit=5	Список режиссёров (пагинация)
