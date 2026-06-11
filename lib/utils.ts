@@ -48,25 +48,33 @@ export function updateDirector(id: string, data: any): Director | null {
 }
 
 export function deleteDirector(id: string): boolean {
-  // Мягкое удаление всех фильмов режиссёра
-  const movies = getMovies();
-  let changed = false;
-  movies.forEach(movie => {
-    if (movie.directorId === id && !movie.isDeleted) {
-      movie.isDeleted = true;
-      movie.updatedAt = getNow();
-      changed = true;
-    }
-  });
-  if (changed) setMovies(movies);
+  console.log("deleteDirector вызван с ID:", id);
   
-  // Мягкое удаление самого режиссёра
-  const directors = getDirectors();
-  const index = directors.findIndex(d => d.id === id);
-  if (index === -1) return false;
+  // Получаем текущие данные
+  let directors = getAllDirectors();
+  let movies = getAllMovies();
   
-  directors[index] = { ...directors[index], isDeleted: true, updatedAt: getNow() };
-  setDirectors(directors);
+  console.log("До удаления - режиссёров:", directors.length, "фильмов:", movies.length);
+  
+  // Проверяем, существует ли режиссёр
+  const directorExists = directors.some(d => d.id === id);
+  if (!directorExists) {
+    console.log("Режиссёр не найден");
+    return false;
+  }
+  
+  // Удаляем режиссёра
+  const newDirectors = directors.filter(d => d.id !== id);
+  
+  // Удаляем все фильмы этого режиссёра
+  const newMovies = movies.filter(m => m.directorId !== id);
+  
+  // Сохраняем изменения
+  setDirectors(newDirectors);
+  setMovies(newMovies);
+  
+  console.log("После удаления - режиссёров:", newDirectors.length, "фильмов:", newMovies.length);
+  
   return true;
 }
 
@@ -84,7 +92,6 @@ export function getAllMoviesIncludingDeleted(): Movie[] {
 
 export function getMovieById(id: string): Movie | undefined {
   const movie = getMovies().find(m => m.id === id);
-  // Возвращаем даже удалённый, но фронтенд может это обработать
   return movie;
 }
 
@@ -97,7 +104,7 @@ export function createMovie(data: any): Movie {
     directorId: data.directorId,
     posterPath: data.posterPath || "",
     isBlockbuster: data.isBlockbuster,
-    isDeleted: false,  // ← новое поле
+    isDeleted: false,
     createdAt: getNow(),
     updatedAt: getNow(),
   };
@@ -120,11 +127,13 @@ export function updateMovie(id: string, data: any): Movie | null {
 // Мягкое удаление
 export function deleteMovie(id: string): boolean {
   const movies = getMovies();
-  const index = movies.findIndex(m => m.id === id);
-  if (index === -1) return false;
+  const filteredMovies = movies.filter(m => m.id !== id);
   
-  movies[index] = { ...movies[index], isDeleted: true, updatedAt: getNow() };
-  setMovies(movies);
+  if (filteredMovies.length === movies.length) {
+    return false; // фильм не найден
+  }
+  
+  setMovies(filteredMovies);
   return true;
 }
 

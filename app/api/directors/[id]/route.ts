@@ -52,12 +52,18 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+    console.log("Удаляем режиссёра с ID:", id);
+    
     const deleted = deleteDirector(id);
+    
     if (!deleted) {
       return NextResponse.json({ error: "Режиссёр не найден" }, { status: 404 });
     }
+    
+    console.log("Режиссёр удалён успешно");
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error("DELETE error:", error);
     return NextResponse.json({ error: "Ошибка сервера" }, { status: 500 });
   }
 }
