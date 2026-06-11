@@ -1,40 +1,140 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Movie Catalog
 
-## Getting Started
+> Каталог фильмов и режиссёров
 
-First, run the development server:
+---
+
+## 📌 О проекте
+
+Веб-приложение для управления каталогом фильмов.  
+Позволяет добавлять, редактировать и удалять **режиссёров** и **фильмы**, а также загружать постеры и фото режиссёров.
+
+**Предметная область:** `Режиссёр` → `Фильм` (связь один-ко-многим)
+
+---
+
+## 🧠 Архитектура
+
+**Вариант Б — Fullstack Next.js**
+
+- Фронтенд + бэкенд в одном проекте
+- API через Route Handlers (`app/api/`)
+- Хранилище: in-memory + JSON-файл
+
+✅ Нет проблем с CORS  
+✅ Простой запуск  
+✅ Легко расширяется
+
+---
+
+## 🛠 Технологии
+
+| Назначение | Технология |
+|------------|------------|
+| ⚛️ Фреймворк | Next.js 16+ (App Router) |
+| 📘 Язык | TypeScript |
+| 🎨 Стили | Tailwind CSS |
+| 🔌 API | Next.js Route Handlers |
+| 💾 Хранилище | In-memory + JSON |
+| 🌐 Запросы | Fetch API |
+
+---
+
+## 🚀 Запуск
 
 ```bash
+git clone https://github.com/Dahipie/movie-catalog.git
+cd movie-catalog
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Открой **http://localhost:3000**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Сущности
 
-## Learn More
+| Сущность | Поля |
+|----------|------|
+| **Director** (Режиссёр) | `id`, `fullName`, `birthYear`, `country`, `isActive`, `photoPath`, `createdAt`, `updatedAt` |
+| **Movie** (Фильм) | `id`, `title`, `releaseYear`, `genre`, `directorId`, `posterPath`, `description`, `duration`, `budget`, `boxOffice`, `rating`, `country`, `tagline`, `isBlockbuster`, `createdAt`, `description` |
 
-To learn more about Next.js, take a look at the following resources:
+**Связи:** `Director` → `Movie` →(один-ко-многим)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📡 API
 
-## Deploy on Vercel
+### Режиссёры
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Метод | Эндпоинт | Описание |
+|-------|----------|----------|
+| GET | `/api/directors?page=1&limit=5` | Список режиссёров (пагинация) |
+| GET | `/api/directors/:id` | Один режиссёр + его фильмы |
+| POST | `/api/directors` | 	Создать режиссёра |
+| PATCH | `/api/directors/:id` | Обновить режиссёра |
+| DELETE | `/api/directors/:id` | 	Удалить режиссёра |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
-# movie-catalog
->>>>>>> ad4e5ab143499a8d928284eea04714e78706e269
+### Фильмы
+
+| Метод | Эндпоинт | Описание |
+|-------|----------|----------|
+| GET | `/api/movies?page=1&search=&directorId=` | Список фильмов (пагинация, поиск, фильтр) |
+| GET | `/api/movies/:id` | Один фильм |
+| POST | `/api/movies` | Создать фильм |
+| PATCH | `/api/movies/:id` | 	Обновить фильм |
+| DELETE | `/api/movies/:id` | Удалить фильм |
+
+### Загрузка файлов
+
+| Метод | Эндпоинт | Описание |
+|-------|----------|----------|
+| POST | `/api/upload` | Загрузка постеров (image/*) и фото (image/*) |
+
+---
+
+## 📸 Скриншоты
+
+### Главная страница
+
+![Главная страница](https://github.com/user-attachments/assets/08428c2e-5ed2-4f02-9a2c-f6574f5bce82)
+
+---
+
+### Все режиссеры
+
+![Список режиссёров](https://github.com/user-attachments/assets/be78e9d0-e4ce-450b-9db1-22ac5bf04729)
+
+---
+
+### Конкретный режиссер
+
+![Конкретный режиссёр](https://github.com/user-attachments/assets/9d43f56e-d061-42b0-99e7-a6eeb4c0eff8)
+
+---
+
+### Все фильмы
+
+![Список фильмов](https://github.com/user-attachments/assets/b903d519-f74f-4fa7-aa41-d1b5bc868ac5)
+
+---
+
+### Конкретный фильм
+
+![Конкретный фильм](https://github.com/user-attachments/assets/8adea59d-0af5-451d-9b25-735319446c4b)
+
+---
+
+### Пример создания нового фильма
+
+![Форма создания фильма](https://github.com/user-attachments/assets/2eac1b05-17d2-41c1-a902-f85064ba7d4b)
+
+---
+
+## 👤 Автор
+
+**Войнов Степан Николаевич**  
+Группа ИСП-9.19 | Специальность 09.02.07
+
+---
