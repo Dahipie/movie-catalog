@@ -17,8 +17,7 @@ export function getDirectorById(id: string): Director | undefined {
 }
 
 export function getMoviesByDirector(directorId: string): Movie[] {
-  // Показываем только не удалённые фильмы режиссёра
-  return getMovies().filter(m => m.directorId === directorId && !m.isDeleted);
+  return getMovies().filter(m => m.directorId === directorId);
 }
 
 export function createDirector(data: any): Director {
@@ -104,7 +103,6 @@ export function createMovie(data: any): Movie {
     directorId: data.directorId,
     posterPath: data.posterPath || "",
     isBlockbuster: data.isBlockbuster,
-    isDeleted: false,
     createdAt: getNow(),
     updatedAt: getNow(),
   };
@@ -142,9 +140,9 @@ export function restoreMovie(id: string): boolean {
   const movies = getMovies();
   const index = movies.findIndex(m => m.id === id);
   if (index === -1) return false;
-  if (!movies[index].isDeleted) return false;
   
-  movies[index] = { ...movies[index], isDeleted: false, updatedAt: getNow() };
+  // Просто обновляем дату или возвращаем true
+  movies[index] = { ...movies[index], updatedAt: getNow() };
   setMovies(movies);
   return true;
 }

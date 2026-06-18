@@ -20,7 +20,7 @@ export interface Movie {
   duration?: number;
   budget?: string;
   rating?: string;
-  country?: string; м
+  м?: string;
   isBlockbuster: boolean;
   createdAt: string;
   updatedAt: string;

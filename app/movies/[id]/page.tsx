@@ -108,7 +108,7 @@ export default function MovieDetailPage() {
                 </div>
                 <div>
                   <p className="text-gray-500 text-sm">🌍 Страна</p>
-                  <p className="font-medium">{movie.country || "Не указана"}</p>
+                  <p className="font-medium">Не указана</p>
                 </div>
                 <div>
                   <p className="text-gray-500 text-sm">🎬 Режиссёр</p>
