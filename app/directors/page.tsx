@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Director, ApiResponse } from "@/types";
 import DirectorCard from "@/components/DirectorCard";
 import Pagination from "@/components/Pagination";
-import SkeletonCard from "@/components/SkeletonCard";
 
 export default function DirectorsPage() {
   const [directors, setDirectors] = useState<Director[]>([]);
@@ -41,14 +40,13 @@ export default function DirectorsPage() {
     }
   };
 
-  // ⬇️ ЗДЕСЬ ЗАМЕНА ⬇️
   if (loading) {
     return <div className="text-center py-10 text-gray-500">⏳ Загрузка...</div>;
   }
 
   return (
     <div className="pb-8">
-      <h1 className="text-2xl font-bold mb-4 animate-slide-left">🎭 Режиссёры</h1>
+      <h1 className="text-2xl font-bold mb-4">🎭 Режиссёры</h1>
       
       {directors.length === 0 ? (
         <div className="text-center py-12 bg-white rounded-xl shadow-md">
