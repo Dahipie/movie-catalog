@@ -7,7 +7,10 @@
 ## ⚙️ Хостинг
 
 > Сайт размещен на бесплатном хостинге **Railway.app**и **Vercel** и доступен по ссылке:
+
+
 🔗 **https://movie-catalog-production-95e1.up.railway.app/**
+🔗 **https://movie-catalog-amber.vercel.app**
 ---
 
 ## 📖 О проекте
