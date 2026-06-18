@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Director, ApiResponse } from "@/types";
 import DirectorCard from "@/components/DirectorCard";
 import Pagination from "@/components/Pagination";
-import LoadingSpinner from "@/components/LoadingSpinner";
 import SkeletonCard from "@/components/SkeletonCard";
 
 export default function DirectorsPage() {
@@ -42,39 +41,46 @@ export default function DirectorsPage() {
     }
   };
 
+  // ⬇️ ЗДЕСЬ ЗАМЕНА ⬇️
+  if (loading) {
+    return <div className="text-center py-10 text-gray-500">⏳ Загрузка...</div>;
+  }
+
   return (
-    <div className="animate-fade-in">
-      <h1 className="text-3xl font-bold mb-6 animate-slide-left">🎭 Режиссёры</h1>
+    <div className="pb-8">
+      <h1 className="text-2xl font-bold mb-4 animate-slide-left">🎭 Режиссёры</h1>
       
-      {loading ? (
-        <div className="grid md:grid-cols-2 gap-4">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="animate-fade-in-up delay-100" style={{ animationDelay: `${i * 0.1}s` }}>
-              <SkeletonCard />
-            </div>
-          ))}
+      {directors.length === 0 ? (
+        <div className="text-center py-12 bg-white rounded-xl shadow-md">
+          <p className="text-gray-500">😕 Режиссёров не найдено</p>
+          <button
+            onClick={() => window.location.href = "/directors/new"}
+            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+          >
+            ➕ Добавить первого режиссёра
+          </button>
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 gap-4">
-          {directors.map((director, index) => (
-            <div 
-              key={director.id} 
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <DirectorCard director={director} onDelete={handleDelete} />
-            </div>
+        <div className="space-y-4">
+          {directors.map((director) => (
+            <DirectorCard
+              key={director.id}
+              director={director}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       )}
-      
-      <div className="animate-fade-in-up delay-300">
-        <Pagination
-          currentPage={page}
-          totalPages={totalPages}
-          onPageChange={setPage}
-        />
-      </div>
+
+      {totalPages > 1 && (
+        <div className="mt-6">
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
+        </div>
+      )}
     </div>
   );
 }

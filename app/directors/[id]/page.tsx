@@ -52,8 +52,9 @@ export default function DirectorDetailPage() {
     if (id) fetchDirector();
   }, [id]);
 
+  // ⬇️ ЗДЕСЬ ЗАМЕНА ⬇️
   if (loading) {
-    return <div className="text-center py-10">Загрузка...</div>;
+    return <div className="text-center py-10 text-gray-500">⏳ Загрузка режиссёра...</div>;
   }
 
   if (!director) {

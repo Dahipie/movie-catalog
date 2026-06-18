@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Movie, Director, ApiResponse } from "@/types";
 import MovieCard from "@/components/MovieCard";
 import Pagination from "@/components/Pagination";
+import SkeletonCard from "@/components/SkeletonCard";
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -47,19 +48,25 @@ export default function MoviesPage() {
   }, [page, search, selectedDirectorId]);
 
   const handleDelete = async (id: string) => {
-    try {
-      await fetch(`/api/movies/${id}`, { method: "DELETE" });
-      fetchMovies();
-    } catch (error) {
-      console.error(error);
+    if (confirm("Удалить фильм?")) {
+      try {
+        await fetch(`/api/movies/${id}`, { method: "DELETE" });
+        fetchMovies();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+
+  // ⬇️ ЗДЕСЬ ЗАМЕНА ⬇️
+  if (loading) {
+    return <div className="text-center py-10 text-gray-500">⏳ Загрузка...</div>;
+  }
 
   return (
     <div className="pb-8">
       <h1 className="text-2xl font-bold mb-4 animate-slide-left">🎬 Фильмы</h1>
       
-      {/* Поиск */}
       <div className="mb-4 animate-slide-right">
         <input
           type="text"
@@ -73,7 +80,6 @@ export default function MoviesPage() {
         />
       </div>
 
-      {/* Фильтр по режиссёру */}
       <div className="mb-6 animate-slide-right delay-100">
         <select
           value={selectedDirectorId}
@@ -92,7 +98,6 @@ export default function MoviesPage() {
         </select>
       </div>
 
-      {/* Список фильмов */}
       {loading ? (
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (

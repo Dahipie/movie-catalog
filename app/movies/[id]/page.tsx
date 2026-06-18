@@ -34,14 +34,19 @@ export default function MovieDetailPage() {
     if (id) fetchMovie();
   }, [id]);
 
-  if (loading) return <div className="text-center py-10">Загрузка...</div>;
-  if (!movie) return <div className="text-center py-10 text-red-500">Фильм не найден</div>;
+  // ⬇️ ЗДЕСЬ ЗАМЕНА ⬇️
+  if (loading) {
+    return <div className="text-center py-10 text-gray-500">⏳ Загрузка фильма...</div>;
+  }
+  
+  if (!movie) {
+    return <div className="text-center py-10 text-red-500">Фильм не найден</div>;
+  }
 
   const posterUrl = movie.posterPath && !imageError 
     ? movie.posterPath 
     : "/posters/placeholder.jpg";
 
-  // Форматирование длительности
   const formatDuration = (minutes?: number) => {
     if (!minutes) return "Не указано";
     const hours = Math.floor(minutes / 60);
@@ -62,7 +67,6 @@ export default function MovieDetailPage() {
       
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="flex flex-col md:flex-row">
-          {/* Постер */}
           <div className="relative w-full md:w-80 h-96 md:h-auto flex-shrink-0 bg-gray-200">
             <Image
               src={posterUrl}
@@ -73,11 +77,9 @@ export default function MovieDetailPage() {
             />
           </div>
           
-          {/* Информация о фильме */}
           <div className="p-6 flex-1">
             <h1 className="text-3xl font-bold mb-2">{movie.title}</h1>
             
-            {/* Рейтинг и статус */}
             <div className="flex flex-wrap gap-2 mb-4">
               {movie.isBlockbuster && (
                 <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">
@@ -91,7 +93,6 @@ export default function MovieDetailPage() {
               )}
             </div>
             
-            {/* Основные характеристики */}
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-2">
                 <div>
@@ -108,7 +109,7 @@ export default function MovieDetailPage() {
                 </div>
                 <div>
                   <p className="text-gray-500 text-sm">🌍 Страна</p>
-                  <p className="font-medium">Не указана</p>
+                  <p className="font-medium">{movie.country || "Не указана"}</p>
                 </div>
                 <div>
                   <p className="text-gray-500 text-sm">🎬 Режиссёр</p>
@@ -121,7 +122,6 @@ export default function MovieDetailPage() {
               </div>
             </div>
             
-            {/* Описание сюжета */}
             {movie.description && (
               <div className="mt-6 pt-4 border-t">
                 <h2 className="text-xl font-semibold mb-2">📖 Сюжет</h2>
@@ -129,7 +129,6 @@ export default function MovieDetailPage() {
               </div>
             )}
             
-            {/* Кнопки действий */}
             <div className="mt-6 flex gap-3">
               <button
                 onClick={() => router.push(`/movies/${movie.id}/edit`)}
